@@ -7,8 +7,8 @@ if ! command -v certbot &> /dev/null; then
 fi
 
 # 申请证书
-certbot certonly --standalone --non-interactive --agree-tos -m your@email.com -d www.helloweb3.online
-certbot certonly --standalone --non-interactive --agree-tos -m your@email.com -d tr.helloweb3.online
+certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.com -d www.helloweb3.online
+certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.com -d tr.helloweb3.online
 
 # 创建证书目录
 mkdir -p ./certs/www.helloweb3.online
