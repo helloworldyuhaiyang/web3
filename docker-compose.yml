@@ -16,7 +16,7 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx
-    restart: always
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
@@ -31,9 +31,9 @@ services:
   trojan:
     image: trojangfw/trojan:latest
     container_name: trojan
-    restart: always
+    restart: unless-stopped
     volumes:
-      - ./trojan-config.json:/config.json:ro
+      - ./trojan-config.json:/config/config.json:ro
       - certs:/etc/nginx/certs:ro
     networks:
       - app_network
