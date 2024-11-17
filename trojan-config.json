@@ -1,11 +1,18 @@
 {
     "run_type": "server",
     "local_addr": "0.0.0.0",
-    "local_port": 443,
-    "password": ["your-trojan-password"],
+    "local_port": 10443,
+    "remote_addr": "host.docker.internal",
+    "remote_port": 80,
+    "log_level": 2,
+    "password": [
+        "your-trojan-password"
+    ],
     "ssl": {
         "cert": "/etc/certs/tr.helloweb3.online/fullchain.pem",
         "key": "/etc/certs/tr.helloweb3.online/privkey.pem",
+        "fallback_addr": "host.docker.internal",
+        "fallback_port": 8443,
         "verify": false
     }
 }
