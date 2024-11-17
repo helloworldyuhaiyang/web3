@@ -9,8 +9,8 @@
         "your-trojan-password"
     ],
     "ssl": {
-        "cert": "/etc/certs/tr.helloweb3.online/fullchain.pem",
-        "key": "/etc/certs/tr.helloweb3.online/privkey.pem",
+        "cert": "/etc/certs/fullchain.pem",
+        "key": "/etc/certs/privkey.pem",
         "fallback_addr": "host.docker.internal",
         "fallback_port": 8443,
         "verify": false

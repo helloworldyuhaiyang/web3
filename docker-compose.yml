@@ -1,13 +1,5 @@
 version: '3.8'
 
-volumes:
-  certs:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /etc/letsencrypt/live
-
 networks:
   app_network:
     driver: bridge
@@ -23,7 +15,7 @@ services:
       - "8443:8443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - certs:/etc/certs:ro
+      - /etc/letsencrypt/live/www.helloweb3.online:/etc/certs:ro
     depends_on:
       - trojan
     networks:
@@ -39,7 +31,7 @@ services:
       - "10443:10443"
     volumes:
       - ./trojan-config.json:/data/trojan.json:ro
-      - certs:/etc/certs:ro
+      - /etc/letsencrypt/live/tr.helloweb3.online:/etc/certs:ro
     command: trojan-go -config /data/trojan.json
     networks:
       - app_network
