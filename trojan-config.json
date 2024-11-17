@@ -4,8 +4,8 @@
     "local_port": 443,
     "password": ["your-trojan-password"],
     "ssl": {
-        "cert": "/etc/nginx/certs/tr.helloweb3.online/fullchain.pem",
-        "key": "/etc/nginx/certs/tr.helloweb3.online/privkey.pem",
+        "cert": "/etc/certs/tr.helloweb3.online/fullchain.pem",
+        "key": "/etc/certs/tr.helloweb3.online/privkey.pem",
         "verify": false
     }
 }
