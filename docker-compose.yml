@@ -7,6 +7,7 @@ volumes:
       type: none
       o: bind
       device: /etc/letsencrypt
+      device_type: bind
 
 networks:
   app_network:
@@ -16,7 +17,7 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx
-    restart: unless-stopped
+    restart: "no"
     ports:
       - "80:80"
       - "443:443"
@@ -24,17 +25,21 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - letsencrypt:/etc/letsencrypt:ro
-    depends_on:
-      - trojan
     networks:
       - app_network
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    command: >
+      /bin/bash -c "
+        ls -la /etc/letsencrypt/live/www.helloweb3.online/ &&
+        ls -la /etc/letsencrypt/archive/www.helloweb3.online/ &&
+        nginx -g 'daemon off;'
+      "
 
   trojan:
     image: gists/trojan-go:latest
     container_name: trojan
-    restart: unless-stopped
+    restart: "no"
     ports:
       - "10443:10443"
     volumes:
