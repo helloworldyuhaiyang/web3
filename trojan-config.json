@@ -6,7 +6,7 @@
     "remote_port": 80,
     "log_level": 2,
     "password": [
-        "your-trojan-password"
+        "Yhy@,.2024"
     ],
     "ssl": {
         "cert": "/etc/trojan/ssl/tr.helloweb3.online/fullchain.pem",
