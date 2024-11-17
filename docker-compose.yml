@@ -28,6 +28,8 @@ services:
       - trojan
     networks:
       - app_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   trojan:
     image: gists/trojan-go:latest
