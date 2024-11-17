@@ -41,3 +41,5 @@ services:
     command: trojan-go -config /data/trojan.json
     networks:
       - app_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
