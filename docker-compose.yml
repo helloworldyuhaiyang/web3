@@ -19,7 +19,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - certs:/etc/nginx/certs:ro # 挂载公共 volume
+      - certs:/etc/certs:ro # 挂载公共 volume
       - ./www:/usr/share/nginx/html:ro
 
   trojan:
@@ -30,6 +30,6 @@ services:
       - "443:443"
     volumes:
       - ./trojan-config.json:/config.json:ro
-      - certs:/etc/nginx/certs:ro # 挂载公共 volume
+      - certs:/etc/certs:ro # 挂载公共 volume
     environment:
       - TZ=Asia/Shanghai
