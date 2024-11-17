@@ -29,13 +29,13 @@ services:
       - app_network
 
   trojan:
-    image: trojangfw/trojan:latest
+    image: gists/trojan-go:latest
     container_name: trojan
     restart: unless-stopped
     ports:
       - "443:443"
     volumes:
-      - ./trojan-config.json:/config/config.json:ro
+      - ./trojan-config.json:/data/config.json:ro
       - certs:/etc/certs:ro
     networks:
       - app_network
