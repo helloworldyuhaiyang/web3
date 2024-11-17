@@ -1,14 +1,5 @@
 version: '3.8'
 
-volumes:
-  letsencrypt:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /etc/letsencrypt
-      device_type: bind
-
 networks:
   app_network:
     driver: bridge
@@ -17,46 +8,29 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx
-    restart: "no"
-    user: root
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
       - "8443:8443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - letsencrypt:/etc/letsencrypt:ro
+      - ./certs:/etc/nginx/ssl:ro
     networks:
       - app_network
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    command: >
-      /bin/bash -c "
-        mkdir -p /etc/nginx/ssl/www.helloweb3.online &&
-        cp /etc/letsencrypt/archive/www.helloweb3.online/fullchain1.pem /etc/nginx/ssl/www.helloweb3.online/fullchain.pem &&
-        cp /etc/letsencrypt/archive/www.helloweb3.online/privkey1.pem /etc/nginx/ssl/www.helloweb3.online/privkey.pem &&
-        chmod 644 /etc/nginx/ssl/www.helloweb3.online/*.pem &&
-        nginx -g 'daemon off;'
-      "
 
   trojan:
     image: gists/trojan-go:latest
     container_name: trojan
-    restart: "no"
-    user: root
+    restart: unless-stopped
     ports:
       - "10443:10443"
     volumes:
       - ./trojan-config.json:/data/trojan.json:ro
-      - letsencrypt:/etc/letsencrypt:ro
-    command: >
-      /bin/bash -c "
-        mkdir -p /etc/trojan/ssl/tr.helloweb3.online &&
-        cp /etc/letsencrypt/archive/tr.helloweb3.online/fullchain1.pem /etc/trojan/ssl/tr.helloweb3.online/fullchain.pem &&
-        cp /etc/letsencrypt/archive/tr.helloweb3.online/privkey1.pem /etc/trojan/ssl/tr.helloweb3.online/privkey.pem &&
-        chmod 644 /etc/trojan/ssl/tr.helloweb3.online/*.pem &&
-        trojan-go -config /data/trojan.json
-      "
+      - ./certs:/etc/trojan/ssl:ro
+    command: trojan-go -config /data/trojan.json
     networks:
       - app_network
     extra_hosts:
