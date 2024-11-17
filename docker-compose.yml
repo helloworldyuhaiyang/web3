@@ -35,8 +35,8 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./trojan-config.json:/data/config.json:ro
+      - ./trojan-config.json:/data/trojan.json:ro
       - certs:/etc/certs:ro
-    command: trojan-go -config /data/config.json
+    command: trojan-go -config /data/trojan.json
     networks:
       - app_network
