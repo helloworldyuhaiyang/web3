@@ -1,0 +1,71 @@
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+external-controller: '127.0.0.1:9090'
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 114.114.114.114
+
+proxies:
+  - name: "Trojan-HW3"
+    type: trojan
+    server: tr.helloweb3.online
+    port: 443
+    password: "Yhy@,.2024"
+    udp: true
+    sni: tr.helloweb3.online
+    alpn:
+      - h2
+      - http/1.1
+    skip-cert-verify: true
+
+proxy-groups:
+  - name: "PROXY"
+    type: select
+    proxies:
+      - Trojan-HW3
+      - DIRECT
+
+  - name: "Final"
+    type: select
+    proxies:
+      - PROXY
+      - DIRECT
+
+rules:
+  # 中国域名直连
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - DOMAIN-KEYWORD,-cn,DIRECT
+
+  # 常用国外网站代理
+  - DOMAIN-SUFFIX,google.com,PROXY
+  - DOMAIN-SUFFIX,google.com.hk,PROXY
+  - DOMAIN-SUFFIX,gmail.com,PROXY
+  - DOMAIN-SUFFIX,youtube.com,PROXY
+  - DOMAIN-SUFFIX,githubusercontent.com,PROXY
+  - DOMAIN-SUFFIX,github.com,PROXY
+  - DOMAIN-SUFFIX,twitter.com,PROXY
+  - DOMAIN-SUFFIX,facebook.com,PROXY
+  - DOMAIN-SUFFIX,instagram.com,PROXY
+  - DOMAIN-SUFFIX,netflix.com,PROXY
+  - DOMAIN-SUFFIX,openai.com,PROXY
+  - DOMAIN-SUFFIX,claude.ai,PROXY
+
+  # 局域网直连
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+
+  # 中国 IP 直连
+  - GEOIP,CN,DIRECT
+
+  # 最终规则
+  - MATCH,Final 
