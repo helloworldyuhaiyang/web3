@@ -18,7 +18,7 @@ proxies:
     type: trojan
     server: tr.helloweb3.online
     port: 443
-    password: "Yhy@,.2024"
+    password: ""
     udp: true
     sni: tr.helloweb3.online
     alpn:
