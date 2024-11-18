@@ -14,6 +14,7 @@ certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.
 # 创建证书目录
 mkdir -p ./certs/www.helloweb3.online
 mkdir -p ./certs/tr.helloweb3.online
+mkdir -p ./certs/dev.helloweb3.online
 
 # 复制实际的证书文件（使用 -L 选项跟随软链接）
 cp -L /etc/letsencrypt/live/www.helloweb3.online/fullchain.pem ./certs/www.helloweb3.online/
