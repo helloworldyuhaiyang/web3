@@ -9,6 +9,7 @@ fi
 # 申请证书
 certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.com -d www.helloweb3.online
 certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.com -d tr.helloweb3.online
+certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.com -d dev.helloweb3.online
 
 # 创建证书目录
 mkdir -p ./certs/www.helloweb3.online
@@ -19,6 +20,8 @@ cp -L /etc/letsencrypt/live/www.helloweb3.online/fullchain.pem ./certs/www.hello
 cp -L /etc/letsencrypt/live/www.helloweb3.online/privkey.pem ./certs/www.helloweb3.online/
 cp -L /etc/letsencrypt/live/tr.helloweb3.online/fullchain.pem ./certs/tr.helloweb3.online/
 cp -L /etc/letsencrypt/live/tr.helloweb3.online/privkey.pem ./certs/tr.helloweb3.online/
+cp -L /etc/letsencrypt/live/dev.helloweb3.online/fullchain.pem ./certs/dev.helloweb3.online/
+cp -L /etc/letsencrypt/live/dev.helloweb3.online/privkey.pem ./certs/dev.helloweb3.online/
 
 # 设置权限
 chmod 644 ./certs/*/*.pem
