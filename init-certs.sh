@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 定义邮箱变量 , 在执行的时候输入邮箱地址
+read -p "请输入邮箱地址: " mail
+
 # 检查并安装 certbot
 if ! command -v certbot &> /dev/null; then
     apt-get update
@@ -7,9 +10,9 @@ if ! command -v certbot &> /dev/null; then
 fi
 
 # 申请证书
-certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.com -d www.helloweb3.online
-certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.com -d tr.helloweb3.online
-certbot certonly --standalone --non-interactive --agree-tos -m helloyang9@gmail.com -d dev.helloweb3.online
+certbot certonly --standalone --non-interactive --agree-tos -m "$mail" -d www.helloweb3.online
+certbot certonly --standalone --non-interactive --agree-tos -m "$mail" -d tr.helloweb3.online
+certbot certonly --standalone --non-interactive --agree-tos -m "$mail" -d dev.helloweb3.online
 
 # 创建证书目录
 mkdir -p ./certs/www.helloweb3.online
